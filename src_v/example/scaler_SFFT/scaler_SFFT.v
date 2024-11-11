@@ -1,4 +1,5 @@
-`timescale 1ns / 1ps
+`ifndef scaler_SFFT
+`define scaler_SFFT
 
 `include "uButterfly.v"
 
@@ -58,3 +59,5 @@ module scaler_SFFT #(
        
    
 endmodule
+
+`endif
