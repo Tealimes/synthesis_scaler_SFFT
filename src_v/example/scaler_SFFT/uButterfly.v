@@ -40,12 +40,15 @@ module uButterfly #(
     wire real_eq;
     wire img_eq;
     reg biZero;
+    reg one;
 
     always@(posedge iClk or negedge iRstN) begin
         if(~iRstN) begin 
             biZero <= 0;
+            one <= 0;
         end else begin
             biZero <= ~biZero;
+            one <= 1;
         end
     end
     
@@ -57,7 +60,7 @@ module uButterfly #(
         .iRstN(iRstN),
         .iEn(iEn),
         .iA(iReal1),
-        .iB(1),
+        .iB(one),
         .loadB(loadW),
         .iClr(iClr),
         .oB(oBReal),
@@ -85,7 +88,7 @@ module uButterfly #(
         .iRstN(iRstN),
         .iEn(iEn),
         .iA(iImg1),
-        .iB(1),
+        .iB(one),
         .loadB(loadW),
         .iClr(iClr),
         .oMult(eq_Img1_x_wReal)
