@@ -20,7 +20,6 @@ module uNSADD #(
     reg [9:0] acc_pc; //9 whole bits with one fractional bit
     reg [8:0] acc_off;
     reg [8:0] acc_out;
-    reg [1:0] offset;
     reg [10:0] subOut; //msb is the sign bit
     wire [1:0] minOut;
 
@@ -46,13 +45,12 @@ module uNSADD #(
 
     //constantly accumulates the offset
     always@(posedge iClk or negedge iRstN) begin
-        offset <= 01; //bipolar based offset 
         if(~iRstN) begin
             acc_off <= 0;
         end else if(acc_off == 9'b011111111) begin
             acc_off <= 0;
         end else begin
-            acc_off <= acc_off + offset;
+            acc_off <= acc_off + 1; //bipolar offset 0.5
         end
     end
 
@@ -71,7 +69,7 @@ module uNSADD #(
 
     //constantly accumulates the output
     always@(posedge iClk or negedge iRstN) begin
-        if(~iRstN | acc_off == 9'b011111111) begin
+        if(~iRstN) begin
             acc_out <= 0;
         end else if(acc_off == 9'b011111111) begin
             acc_out <= 0;
