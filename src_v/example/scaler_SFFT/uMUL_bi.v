@@ -15,7 +15,6 @@ module uMUL_bi #(
     input wire iB,
     input wire loadB,
     input wire iClr,
-    output reg oB,
     output reg oMult
 );
 
@@ -68,7 +67,6 @@ module uMUL_bi #(
 
     always@(*) begin
         oMult <= andTop | andBot;
-        oB <= iB_buff; 
     end
 
 endmodule
