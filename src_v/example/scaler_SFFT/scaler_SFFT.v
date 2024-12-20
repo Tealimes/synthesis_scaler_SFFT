@@ -5,6 +5,8 @@
 `ifndef scaler_SFFT
 `define scaler_SFFT
 
+`include "uButterfly.v"
+
 module scaler_SFFT #(
     parameter BITWIDTH = 8,
     parameter BINPUT = 2,
