@@ -24,7 +24,7 @@ module scaler_SFFT #(
     genvar b,i,j,stage;
     generate
         //loops through each stage
-        for(stage=0; stage<=LOG2N; stage=stage+1) begin : g_stages
+        for(stage=0; stage<LOG2N; stage=stage+1) begin : g_stages
             //determines inputs per butterfly grouping
             for(b=2**(stage+1); b != -1; b = -1) begin : g_groupinputs
                 //steps through each seperated butterfly grouping
