@@ -10,12 +10,11 @@
 module scaler_SFFT #(
     parameter BITWIDTH = 8,
     parameter BINPUT = 2,
-    parameter NUMINPUTS = 2,
+    parameter NUMINPUTS = 8,
     parameter LOG2N = $clog2(NUMINPUTS)
 ) (
     input wire iClk, iRstN, iEn, loadW, iClr,
     input wire [NUMINPUTS-1:0] iReal, iImg,
-    input wire [BITWIDTH-1:0] iwReal, iwImg,
     output wire [NUMINPUTS-1:0] oReal, oImg
 );
     wire [(NUMINPUTS*LOG2N)-1:0] midReal, midImg;
@@ -37,7 +36,6 @@ module scaler_SFFT #(
                                 ) u_uButterfly_stage1 (
                                     .iClk(iClk), .iRstN(iRstN), .iEn(iEn), .loadW(loadW), .iClr(iClr),    
                                     .iReal0(iReal[i+j]), .iImg0(iImg[i+j]), .iReal1(iReal[i+j+b/2]), .iImg1(iImg[i+j+b/2]),
-                                    .iwReal(iwReal), .iwImg(iwImg),
                                     .oReal0(midReal[(stage*NUMINPUTS)+i+j]), .oImg0(midImg[(stage*NUMINPUTS)+i+j]), .oReal1(midReal[(stage*NUMINPUTS)+i+j+b/2]), .oImg1(midImg[(stage*NUMINPUTS)+i+j+b/2]) 
                                 );  
                                 
@@ -47,7 +45,6 @@ module scaler_SFFT #(
                                 ) u_uButterfly_stages (
                                     .iClk(iClk), .iRstN(iRstN), .iEn(iEn), .loadW(loadW), .iClr(iClr),    
                                     .iReal0(midReal[(stage*NUMINPUTS-NUMINPUTS)+i+j]), .iImg0(midImg[(stage*NUMINPUTS-NUMINPUTS)+i+j]), .iReal1(midReal[(stage*NUMINPUTS-NUMINPUTS)+i+j+b/2]), .iImg1(midImg[(stage*NUMINPUTS-NUMINPUTS)+i+j+b/2]),
-                                    .iwReal(iwReal), .iwImg(iwImg),
                                     .oReal0(midReal[(stage*NUMINPUTS)+i+j]), .oImg0(midImg[(stage*NUMINPUTS)+i+j]), .oReal1(midReal[(stage*NUMINPUTS)+i+j+b/2]), .oImg1(midImg[(stage*NUMINPUTS)+i+j+b/2]) 
                                 );   
                         end
