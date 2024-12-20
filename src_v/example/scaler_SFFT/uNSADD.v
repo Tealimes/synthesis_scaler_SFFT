@@ -1,4 +1,4 @@
-//By ALexander Peacock, undergrad at UCF ECE
+//By ALexander Peacock
 //email: alexpeacock56ten@gmail.com
 `ifndef uNSADD
 `define uNSADD 
@@ -38,8 +38,8 @@ module uNSADD #(
         if(~iRstN) begin
             acc_pc <= 0;
         end else if(acc_off == 9'b011111111) begin
-            acc_off <= 0;
-        end else begin
+            acc_pc <= 0;
+        end else begin 
             acc_pc <= acc_pc + PCout_s;
         end
     end
@@ -59,8 +59,8 @@ module uNSADD #(
     always@(posedge iClk or negedge iRstN) begin
         if(~iRstN) begin
             subOut <= 0;
-        end else if(acc_off == 9'b011111111) begin
-            acc_off <= 0;
+        end else if(acc_off == 9'b011111111)begin 
+            subOut <= 0;
         end else begin 
             subOut <= acc_pc - acc_off;
         end
@@ -71,10 +71,10 @@ module uNSADD #(
 
     //constantly accumulates the output
     always@(posedge iClk or negedge iRstN) begin
-        if(~iRstN) begin
+        if(~iRstN | acc_off == 9'b011111111) begin
             acc_out <= 0;
         end else if(acc_off == 9'b011111111) begin
-            acc_off <= 0;
+            acc_out <= 0;
         end else begin
             acc_out <= acc_out + minOut;
         end
