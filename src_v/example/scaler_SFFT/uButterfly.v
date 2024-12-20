@@ -13,7 +13,6 @@ module uButterfly #(
 ) (
     input wire iClk, iRstN, iEn, loadW, iClr,
     input wire iReal0, iImg0, iReal1, iImg1,
-    input wire [BITWIDTH-1:0] iwReal, iwImg,
     output wire oReal0, oImg0, oReal1, oImg1
 );
 
