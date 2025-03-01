@@ -71,12 +71,16 @@ module rng_insert #(
     //Used for counter logic
     always@(posedge iClk or negedge iRstN) begin
         //resets the process
-        if(!iRstN | iClr) begin
+        if(!iRstN) begin
             cnt <= 0;
             cntBit <= 0;
         end else begin
+            if(iClr) begin
+                cnt <= 0;
+                cntBit <= 0;
+            end
             //if the program is enabled, otherwise disable
-            if(iEn) begin
+            else if(iEn) begin
                 //resets the window counter if it ends or decrement by 1
                 cntBit <= (cntBit == 0) ? winStart : cntBit - 1;
                     //if the counter doesn't meet the target flip amount
