@@ -32,7 +32,7 @@ module rng_insert #(
     assign half = {1'b0,1'b1,{(FBITWIDTH-2){1'b0}}}; //gets 0.5 probability
     assign prob = polarity ? (half - iProb) : (iProb-half); //finds target probability in positive form, so absolute of (iprob - half)
     assign mult = (prob << (iWINLOG2)); //multiplication of window using shifting from the equation (iprob-half)*window
-    assign target = mult[BITWIDTH+FBITWIDTH-2:FBITWIDTH-1]; //finds actual target amount by getting MSB to FBITWIDTH-1 of mult as needs adjustment from fractional bits
+    assign target = mult[BITWIDTH+FBITWIDTH-2:FBITWIDTH-(BITWIDTH/FBITWIDTH)/2]; //finds actual target amount by getting MSB to FBITWIDTH-1 of mult as needs adjustment from fractional bits
     
     
     wire [BITWIDTH-1:0] winStart; //used for window length in counting down
