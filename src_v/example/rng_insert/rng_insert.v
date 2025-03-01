@@ -18,7 +18,7 @@ module rng_insert #(
     output out //output bit
     );
     
-    wire [BITWIDTH-1:0] half; //stores 0.5
+    wire [FBITWIDTH-1:0] half; //stores 0.5
     reg signed [BITWIDTH-1:0] cnt; //counts flips gotten
     reg state; //used to give output
     wire signed [BITWIDTH+FBITWIDTH-2:0] mult; //holds multiplication value
